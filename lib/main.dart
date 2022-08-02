@@ -1,9 +1,12 @@
 import 'package:chatapp/blocs/auth/auth_bloc.dart';
+import 'package:chatapp/blocs/chats/chats_bloc.dart';
 import 'package:chatapp/blocs/message/message_bloc.dart';
 import 'package:chatapp/blocs/signin/signin_cubit.dart';
 import 'package:chatapp/blocs/signup/signup_cubit.dart';
 import 'package:chatapp/blocs/user/user_bloc.dart';
+import 'package:chatapp/nav_screen.dart';
 import 'package:chatapp/repositories/auth_repository.dart';
+import 'package:chatapp/repositories/chat_repository.dart';
 import 'package:chatapp/repositories/message_repository.dart';
 import 'package:chatapp/repositories/users_repository.dart';
 import 'package:chatapp/screens/home_screen.dart';
@@ -41,6 +44,10 @@ class MyApp extends StatelessWidget {
             create: (context) => MessageRepository(
                   firebaseFirestore: FirebaseFirestore.instance,
                 )),
+        RepositoryProvider<ChatRepository>(
+            create: (context) => ChatRepository(
+                  firebaseFirestore: FirebaseFirestore.instance,
+                )),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -57,8 +64,18 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   UserBloc(userRepository: context.read<UserRepository>())),
           BlocProvider<MessageBloc>(
-              create: (context) => MessageBloc(
-                  messageRepository: context.read<MessageRepository>())),
+            create: (context) => MessageBloc(
+                messageRepository: context.read<MessageRepository>(),
+                authRepository: context.read<AuthRepository>(),
+                authBloc: context.read<AuthBloc>()),
+          ),
+          BlocProvider<ChatsBloc>(
+            create: (context) => ChatsBloc(
+                chatRepository: context.read<ChatRepository>(),
+                messageRepository: context.read<MessageRepository>(),
+                authRepository: context.read<AuthRepository>(),
+                authBloc: context.read<AuthBloc>()),
+          ),
         ],
         child: MaterialApp(
             title: 'Flutter Demo',
@@ -70,6 +87,7 @@ class MyApp extends StatelessWidget {
               SignupPage.routeName: (context) => const SignupPage(),
               SigninPage.routeName: (context) => const SigninPage(),
               HomeScreen.routeName: (context) => const HomeScreen(),
+              NavScreen.routeName: (context) => const NavScreen()
             }),
       ),
     );

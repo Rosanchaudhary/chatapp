@@ -13,9 +13,9 @@ class Message extends Equatable {
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
-        detail: json['detail'],
-        groupId: json['groupId'],
-        sendby: json['sendby']);
+        detail: json['message'],
+        groupId: json['userAname'],
+        sendby: json['userBname']);
   }
 
   @override

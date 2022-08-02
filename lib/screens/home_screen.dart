@@ -1,4 +1,7 @@
+import 'package:chatapp/blocs/chats/chats_bloc.dart';
 import 'package:chatapp/blocs/user/user_bloc.dart';
+import 'package:chatapp/screens/message_screen.dart';
+import 'package:chatapp/widgets/chat_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<UserBloc>().add(GetAllUser());
+    context.read<ChatsBloc>().add(GetMyChats());
   }
 
   @override
@@ -23,13 +27,26 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Chats"),
       ),
-
-      body: BlocBuilder<UserBloc, UserState>(
+      body: BlocBuilder<ChatsBloc, ChatsState>(
         builder: (context, state) {
+
           return ListView.builder(
-              itemCount: state.users.length,
+              itemCount: state.chats.length,
               itemBuilder: (BuildContext context, int index) {
-                return Text(state.users[index].name);
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MessageScreen(
+                                  otherUser: state.myUserId == state.chats[index].userA.id ? state.chats[index].userB :state.chats[index].userA,
+                                  chatId: state.chats[index].id,
+                                )));
+                  },
+                  child: ChatBoxWidget(
+                    user:state.myUserId == state.chats[index].userA.id ? state.chats[index].userB :state.chats[index].userA,
+                  ),
+                );
               });
         },
       ),

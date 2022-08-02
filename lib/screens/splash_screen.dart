@@ -1,5 +1,5 @@
 import 'package:chatapp/blocs/auth/auth_bloc.dart';
-import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/nav_screen.dart';
 import 'package:chatapp/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +28,7 @@ class SplashPage extends StatelessWidget {
             },
           );
         } else if (state.authStatus == AuthStatus.authenticated) {
-          Navigator.pushNamed(context, HomeScreen.routeName);
+          Navigator.pushNamed(context, NavScreen.routeName);
         }
       },
       builder: (context, state) {

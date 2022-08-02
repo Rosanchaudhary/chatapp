@@ -7,7 +7,10 @@ abstract class MessageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetAllMessage extends MessageEvent {}
+class GetAllMessage extends MessageEvent { 
+  final String chatId;
+  const GetAllMessage({required this.chatId});
+}
 
 class MessageUpdated extends MessageEvent {
   const MessageUpdated({required this.message});
@@ -16,4 +19,12 @@ class MessageUpdated extends MessageEvent {
 
   @override
   List<Object> get props => [message];
+}
+
+class SendMessage extends MessageEvent {
+  final String discussionId;
+  final String message;
+  final User userB;
+  const SendMessage(
+      {required this.userB, required this.message, required this.discussionId});
 }

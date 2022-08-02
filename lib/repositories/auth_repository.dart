@@ -2,7 +2,7 @@ import 'package:chatapp/models/custom_error.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: library_prefixes
 import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
- 
+
 class AuthRepository {
   final FirebaseFirestore firebaseFirestore;
   final fbAuth.FirebaseAuth firebaseAuth;
@@ -11,17 +11,19 @@ class AuthRepository {
 
   Stream<fbAuth.User?> get user => firebaseAuth.userChanges();
 
-  Future<void> signUp({ 
-    required String name, 
-    required String email,  
-    required String password, 
+  Future<void> signUp({
+    required String name,
+    required String email,
+    required String password,
   }) async {
     try {
       final fbAuth.UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       final signedInUser = userCredential.user!;
+      signedInUser.updateDisplayName(name);
+      signedInUser.updatePhotoURL('https://picsum.photos/300');
 
-      await firebaseFirestore.collection("users").doc(signedInUser.uid).set({ 
+      await firebaseFirestore.collection("users").doc(signedInUser.uid).set({
         'name': name,
         'email': email,
         'profileImage': 'https://picsum.photos/300',

@@ -18,9 +18,17 @@ class User extends Equatable {
   factory User.fromJson(QueryDocumentSnapshot<Map<String, dynamic>> json) {
     return User(
         id: json.id,
-        name: json.data()['name'],
+        name: json.data()['name'], 
         email: json.data()['email'],
         profileUrl: json.data()['profileImage']);
+  }
+
+    factory User.fromChats(Map<String, dynamic> json) {
+    return User(
+        id: json['id'],
+        name: json['name'],
+        email: "email@gmail.com",
+        profileUrl: json['imageUrl']);
   }
 
   @override
