@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             create: (context) => ChatRepository(
                   firebaseFirestore: FirebaseFirestore.instance,
                 )),
-      ],
+      ], 
       child: MultiBlocProvider(
         providers: [
           BlocProvider<AuthBloc>(

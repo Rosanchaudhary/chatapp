@@ -10,7 +10,12 @@ class MessageRepository {
     required this.firebaseFirestore,
   });
   Stream<List<Message>> getAllMessage({required String chatId}) {
-    return firebaseFirestore.collection("messages").where("discussionId",isEqualTo: chatId).snapshots().map((snapshot) {
+    return firebaseFirestore
+        .collection("messages")
+        .where("discussionId", isEqualTo: chatId)
+        .orderBy('createdAt',descending: true)
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs.map((doc) => Message.fromJson(doc.data())).toList();
     });
   }
@@ -34,19 +39,21 @@ class MessageRepository {
   }
 
   sendMessage(
-      {
-        required String discussionId,
-        required String message, 
+      {required String discussionId,
+      required String message,
       required String? userAname,
       required String userBname,
       required String userAId,
       required String userBId}) async {
     await firebaseFirestore.collection("messages").doc().set({
-      "discussionId":discussionId,
+      "discussionId": discussionId,
       "message": message,
       "userAname": userAname,
       "userBname": userBname,
-      "users": [userAId, userBId]
+      "sender": userAId,
+      "receiver": userBId,
+      "users": [userAId, userBId],
+      "createdAt": Timestamp.now()
     });
   }
 }

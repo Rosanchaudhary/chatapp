@@ -53,11 +53,6 @@ class _SignupPageState extends State<SignupPage> {
                       shrinkWrap: true,
                       reverse: true,
                       children: [
-                        Image.asset(
-                          'assets/images/flutter_logo.png',
-                          width: 250,
-                          height: 250,
-                        ),
                         const SizedBox(
                           height: 20.0,
                         ),

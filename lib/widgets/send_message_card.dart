@@ -19,15 +19,16 @@ class _SendMessageCardState extends State<SendMessageCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(15.0),
-      height: 61,
+      alignment: Alignment.bottomCenter,
+      margin: const EdgeInsets.all(10.0),
+      height: 60,
       child: Row(
         children: [
           Expanded(
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(35.0),
+                borderRadius: BorderRadius.circular(12.0),
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 3), blurRadius: 5, color: Colors.grey)
@@ -45,7 +46,7 @@ class _SendMessageCardState extends State<SendMessageCard> {
                       keyboardType: TextInputType.text,
                       textAlign: TextAlign.left,
                       decoration: const InputDecoration(
-                          hintText: "Type Something...",
+                          hintText: "  Type Something...",
                           hintStyle: TextStyle(color: Colors.blueAccent),
                           border: InputBorder.none),
                     ),

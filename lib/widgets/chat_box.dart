@@ -8,32 +8,60 @@ class ChatBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.all(10),
-        height: 60,
-        decoration: BoxDecoration(
-            border: Border(
-          bottom: BorderSide(width: 1.5, color: Colors.grey.shade300),
-        )),
-        child: Row(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(50.0),
-                child: Image.network(
-                  user.profileUrl,
-                  height: 50,
-                  width: 50,
-                )),
-            const SizedBox(
-              width: 8,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(user.name),
-                const Text("Rescent message"),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                const CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://randomuser.me/api/portraits/men/5.jpg"),
+                  maxRadius: 30,
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          user.name,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Text(
+                          "rescent message",
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey.shade600,
+                              fontWeight: true
+                                  ? FontWeight.bold
+                                  // ignore: dead_code
+                                  : FontWeight.normal),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
-          ],
-        ));
+          ),
+          const Text(
+            '20:02',
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight:
+                    // ignore: dead_code
+                    true ? FontWeight.bold : FontWeight.normal),
+          ),
+        ],
+      ),
+    );
   }
 }

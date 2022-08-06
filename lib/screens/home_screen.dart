@@ -25,11 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Chats"),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.person_add))
+        ],
       ),
       body: BlocBuilder<ChatsBloc, ChatsState>(
         builder: (context, state) {
-
           return ListView.builder(
               itemCount: state.chats.length,
               itemBuilder: (BuildContext context, int index) {
@@ -39,12 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => MessageScreen(
-                                  otherUser: state.myUserId == state.chats[index].userA.id ? state.chats[index].userB :state.chats[index].userA,
+                                  otherUser: state.myUserId ==
+                                          state.chats[index].userA.id
+                                      ? state.chats[index].userB
+                                      : state.chats[index].userA,
                                   chatId: state.chats[index].id,
                                 )));
                   },
                   child: ChatBoxWidget(
-                    user:state.myUserId == state.chats[index].userA.id ? state.chats[index].userB :state.chats[index].userA,
+                    user: state.myUserId == state.chats[index].userA.id
+                        ? state.chats[index].userB
+                        : state.chats[index].userA,
                   ),
                 );
               });
