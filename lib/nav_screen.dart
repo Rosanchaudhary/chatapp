@@ -1,5 +1,6 @@
 import 'package:chatapp/models/nav_model.dart';
 import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/screens/profile_screen.dart';
 import 'package:chatapp/screens/user_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,8 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    UsersScreen()
+    UsersScreen(),
+    ProfileScreen()
   ];
   bool showAppBar = true;
   int _currentIndex = 0;

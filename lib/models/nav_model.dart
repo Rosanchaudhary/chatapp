@@ -11,4 +11,5 @@ class Screens {
 const List<Screens> allScreens = <Screens>[
   Screens('Chats', Icons.chat, Colors.pink),
   Screens('People', CupertinoIcons.person, Colors.orange),
+  Screens('Profile', CupertinoIcons.person, Colors.amber)
 ];
